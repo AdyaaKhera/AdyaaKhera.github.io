@@ -6,44 +6,65 @@ import { projects } from '../../data/projects';
 <BaseLayout title="Projects" description="A visual archive of Adyaa Khera's robotics projects.">
   <section class="project-page">
     <div class="project-page-head">
-      <div><span class="eyebrow">Portfolio / dummy case studies</span><h1>Projects</h1></div>
-      <p class="lede">Click any project to open its full case study. The gallery stays still; only the project window scrolls.</p>
+      <h1>Projects</h1>
     </div>
     <div class="project-grid" aria-label="Project gallery">
       {projects.map((project) => (
-        <button class="project-tile" type="button" data-project={project.slug} aria-haspopup="dialog">
-          <span class="tile-number">{project.number} / {project.year}</span>
-          <span class="tile-visual" aria-hidden="true">PROJECT<br />GIF</span>
-          <span><strong class="tile-title">{project.title}</strong><span class="tile-meta"><span>{project.type}</span><span>OPEN ↗</span></span></span>
-        </button>
+        <article class={`project-tile project-${project.slug}`} tabindex="0" role="button" data-project={project.slug} aria-expanded="false">
+          <div class="project-tile-preview">
+            <img src={project.displayGif} alt={`${project.title} project preview`} />
+            <span class="project-tile-label"><strong class="tile-title">{project.title}</strong><span class="tile-meta"><span>{project.type}</span><span>EXPAND ↗</span></span></span>
+          </div>
+          <div class="project-tile-detail">
+            <div class="project-detail-scroll">
+              <h2>{project.title}</h2>
+              <div class="project-gallery">
+                {project.gallery.map((image) => <img src={image} alt={`${project.title} gallery view`} loading="lazy" />)}
+              </div>
+              <p class="project-detail-description">{project.description}</p>
+              <p><strong>Role</strong>{project.role}</p>
+              <p><strong>Approach</strong>{project.problem}</p>
+              <ul>{project.implementation.map((item) => <li>{item}</li>)}</ul>
+              <p><strong>Results</strong>{project.results}</p>
+              <p><strong>Notes</strong>{project.limitations}</p>
+            </div>
+            <button class="project-collapse" type="button" aria-label={`Collapse ${project.title}`}>Close</button>
+          </div>
+        </article>
       ))}
     </div>
   </section>
-  {projects.map((project) => (
-    <dialog class="project-dialog" id={`dialog-${project.slug}`} aria-labelledby={`title-${project.slug}`}>
-      <div class="dialog-inner">
-        <button class="dialog-close" type="button" aria-label="Close project dialog">×</button>
-        <span class="eyebrow">{project.number} / {project.type}</span>
-        <h2 id={`title-${project.slug}`}>{project.title}</h2>
-        <p class="dialog-lede">{project.description}</p>
-        <section class="dialog-section"><h3>Problem</h3><p>{project.problem}</p></section>
-        <section class="dialog-section"><h3>Architecture</h3><ul>{project.architecture.map((item) => <li>{item}</li>)}</ul></section>
-        <section class="dialog-section"><h3>Implementation</h3><ul>{project.implementation.map((item) => <li>{item}</li>)}</ul></section>
-        <section class="dialog-section"><h3>Results</h3><p>{project.results}</p></section>
-        <section class="dialog-section"><h3>Limitations</h3><p>{project.limitations}</p></section>
-      </div>
-    </dialog>
-  ))}
 </BaseLayout>
 <script>
-  const tiles = document.querySelectorAll<HTMLButtonElement>('[data-project]');
+  const grid = document.querySelector<HTMLElement>('.project-grid');
+  const tiles = document.querySelectorAll<HTMLElement>('[data-project]');
+  const activate = (tile: HTMLElement) => {
+    tiles.forEach((item) => {
+      const active = item === tile;
+      item.classList.toggle('is-active', active);
+      item.setAttribute('aria-expanded', String(active));
+    });
+    grid?.classList.toggle('is-expanded', true);
+  };
   tiles.forEach((tile) => {
-    tile.addEventListener('click', () => {
-      const dialog = document.querySelector<HTMLDialogElement>(`#dialog-${tile.dataset.project}`);
-      dialog?.showModal();
+    tile.addEventListener('click', (event) => {
+      if ((event.target as HTMLElement).closest('.project-collapse')) return;
+      activate(tile);
+    });
+    tile.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        activate(tile);
+      }
     });
   });
-  document.querySelectorAll<HTMLButtonElement>('.dialog-close').forEach((button) => {
-    button.addEventListener('click', () => button.closest('dialog')?.close());
+  document.querySelectorAll<HTMLButtonElement>('.project-collapse').forEach((button) => {
+    button.addEventListener('click', (event) => {
+      event.stopPropagation();
+      const tile = button.closest<HTMLElement>('.project-tile');
+      tile?.classList.remove('is-active');
+      tile?.setAttribute('aria-expanded', 'false');
+      grid?.classList.remove('is-expanded');
+    });
   });
 </script>

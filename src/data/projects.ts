@@ -1,15 +1,10 @@
 export type Project = {
   slug: string;
-  number: string;
   title: string;
   shortTitle: string;
   type: string;
-  year: string;
   description: string;
-  github?: string;
-  demo?: string;
   status: string;
-  featured?: boolean;
   tags: string[];
   role: string;
   problem: string;
@@ -17,106 +12,135 @@ export type Project = {
   implementation: string[];
   results: string;
   limitations: string;
+  displayGif: string;
+  gallery: string[];
+  github?: string;
+  featured?: boolean;
   media?: { type: 'model' | 'image'; src: string; alt: string };
 };
 
+const placeholder = (title: string) => ({
+  role: `Design, prototyping, and integration for the ${title} project.`,
+  problem: `A placeholder project brief describing the design challenge behind ${title}.`,
+  architecture: ['Modular hardware and software interfaces', 'Iterative testing and integration workflow', 'Documented decisions for future revisions'],
+  implementation: ['Built and tested the core system in small, repeatable steps', 'Focused on reliable interfaces between subsystems', 'Captured lessons from each prototype iteration'],
+  results: 'Dummy project details for now. More technical results will be added as the project documentation is finalized.',
+  limitations: 'This is placeholder copy and does not represent a final performance claim.',
+});
+
 export const projects: Project[] = [
   {
+    slug: 'fls-gpt-sol-61',
+    title: 'FLS using GPT Sol 6.1',
+    shortTitle: 'FLS using GPT Sol 6.1',
+    type: 'Robot manipulation',
+    description: 'A robot manipulation experiment using GPT Sol 6.1 to explore structured task execution.',
+    status: 'Experiment',
+    tags: ['GPT Sol 6.1', 'Manipulation', 'Robot learning'],
+    displayGif: '/media/peg_transfer_gpt.gif',
+    gallery: ['/media/peg_transfer_gpt.gif'],
+    ...placeholder('FLS using GPT Sol 6.1'),
+  },
+  {
+    slug: 'painting-gpt-sol-61',
+    title: 'Painting using GPT Sol 6.1',
+    shortTitle: 'Painting using GPT Sol 6.1',
+    type: 'Generative robotics',
+    description: 'An experiment in turning language and visual ideas into a physical painting workflow.',
+    status: 'Experiment',
+    tags: ['GPT Sol 6.1', 'Creative tools', 'Fabrication'],
+    displayGif: '/media/world_map_gpt.gif',
+    gallery: ['/media/world_map_gpt.gif'],
+    ...placeholder('painting using GPT Sol 6.1'),
+  },
+  {
+    slug: 'cv-system',
+    title: 'Computer vision system',
+    shortTitle: 'Computer vision',
+    type: 'Robot perception',
+    description: 'A computer vision system built from scratch for recognizing and understanding visual information.',
+    status: 'Prototype',
+    tags: ['Computer vision', 'Python', 'Perception'],
+    displayGif: '/media/projects/cv-system/cv-system-display.gif',
+    gallery: [
+      '/media/projects/cv-system/WhatsApp Image 2026-10-11 at 15.10.03.jpeg',
+      '/media/projects/cv-system/WhatsApp Image 2026-10-11 at 15.10.03 (1).jpeg',
+      '/media/projects/cv-system/WhatsApp Image 2026-10-11 at 15.10.03 (2).jpeg',
+    ],
+    ...placeholder('computer vision system'),
+  },
+  {
     slug: 'nexus-rover',
-    number: '01',
     title: 'NEXUS exploration rover',
     shortTitle: 'NEXUS rover',
-    type: 'Field robotics · autonomy',
-    year: '2024—25',
-    description: 'A modular rover platform for navigating uncertain terrain and turning sensor data into actionable spatial context.',
-    github: 'https://github.com/AdyaaKhera',
+    type: 'Space robotics',
+    description: 'A modular rover concept exploring autonomy, sensing, and mobility for challenging environments.',
     status: 'In development',
+    tags: ['ROS 2', 'Autonomy', 'Embedded systems'],
+    displayGif: '/media/projects/nexus/nexus-display.gif',
+    gallery: ['/media/projects/nexus/WhatsApp Image 2026-10-11 at 15.00.02.jpeg', '/media/projects/nexus/nexus-gallery-2.gif'],
+    github: 'https://github.com/AdyaaKhera',
     featured: true,
-    tags: ['ROS 2', 'Navigation', 'Embedded systems'],
-    role: 'Systems integration, autonomy, and mechanical-electrical interface',
-    problem: 'Design a small, repairable mobile platform that can carry perception and autonomy experiments without coupling the work to a single hardware revision.',
-    architecture: ['Differential-drive chassis with serviceable electronics bay', 'ROS 2 nodes for sensing, state estimation, and command interfaces', 'Modular payload interface for cameras and future range sensing'],
-    implementation: ['Separated hardware drivers from behavior logic to make bench testing possible', 'Defined a repeatable bring-up sequence for power, communication, and actuation', 'Documented interfaces as the rover evolved across mechanical revisions'],
-    results: 'The public repository is the source of truth for verified implementation details and results.',
-    limitations: 'Public performance metrics and field-test data will be added only after the relevant work is cleared for disclosure.',
-    media: { type: 'model', src: '', alt: 'Interactive NEXUS rover model placeholder' }
+    ...placeholder('NEXUS exploration rover'),
+  },
+  {
+    slug: 'project-vulcan',
+    title: 'Project Vulcan',
+    shortTitle: 'Project Vulcan',
+    type: 'Space robotics',
+    description: 'A project exploring a rugged robotic system through rapid prototyping and mechanical experimentation.',
+    status: 'Prototype',
+    tags: ['Robotics', 'Mechanical design', 'Prototyping'],
+    displayGif: '/media/projects/project-vulcan/project-vulcan-display.gif',
+    gallery: [
+      '/media/projects/project-vulcan/WhatsApp Image 2026-10-11 at 14.48.15.jpeg',
+      '/media/projects/project-vulcan/WhatsApp Image 2026-10-11 at 14.48.15 (1).jpeg',
+      '/media/projects/project-vulcan/WhatsApp Image 2026-10-11 at 14.48.26.jpeg',
+      '/media/projects/project-vulcan/WhatsApp Image 2026-10-11 at 14.50.44.jpeg',
+    ],
+    ...placeholder('Project Vulcan'),
+  },
+  {
+    slug: 'l1-rocket',
+    title: 'L1 rocket',
+    shortTitle: 'L1 rocket',
+    type: 'Space robotics',
+    description: 'A rocket project exploring hands-on aerospace design, testing, and launch preparation.',
+    status: 'In progress',
+    tags: ['Aerospace', 'Fabrication', 'Testing'],
+    displayGif: '/media/projects/l1-rocket/l1-rocket-display.gif',
+    gallery: [
+      '/media/projects/l1-rocket/WhatsApp Image 2026-10-11 at 14.49.35.jpeg',
+      '/media/projects/l1-rocket/WhatsApp Image 2026-10-11 at 14.49.45.jpeg',
+      '/media/projects/l1-rocket/l1-rocket-gallery-3.gif',
+    ],
+    ...placeholder('L1 rocket'),
   },
   {
     slug: 'cubesat-prototype',
-    number: '02',
     title: '1U CubeSat prototype',
     shortTitle: '1U CubeSat',
-    type: 'Space systems · embedded',
-    year: '2024',
-    description: 'A compact spacecraft prototype used to reason about power, communications, packaging, and subsystem boundaries.',
-    github: 'https://github.com/AdyaaKhera',
+    type: 'Space robotics',
+    description: 'A compact spacecraft prototype for thinking through power, packaging, communications, and subsystem boundaries.',
     status: 'Prototype',
+    tags: ['Systems engineering', 'Space systems', 'Telemetry'],
+    displayGif: '/media/projects/cubesat/cubesat-display.gif',
+    gallery: ['/media/projects/cubesat/WhatsApp Image 2026-10-11 at 15.03.25.jpeg'],
     featured: true,
-    tags: ['Systems engineering', 'PCB design', 'Telemetry'],
-    role: 'Subsystem design and integration',
-    problem: 'Explore how strict volume, power, and interface constraints shape a small spacecraft architecture.',
-    architecture: ['1U mechanical envelope with explicit board and harness interfaces', 'Power and telemetry treated as shared system contracts', 'Test points designed into the prototype instead of added after assembly'],
-    implementation: ['Mapped subsystem dependencies before selecting implementation details', 'Used interface documentation to keep software and hardware work parallel', 'Kept unknowns visible rather than presenting unverified mission claims'],
-    results: 'The prototype communicates a systems approach; verified electrical and mission results remain tied to the original project documentation.',
-    limitations: 'This is a prototype, not a flight-qualified spacecraft. No flight heritage or mission performance is implied.',
-    media: { type: 'model', src: '', alt: 'Interactive CubeSat model placeholder' }
-  },
-  {
-    slug: 'neural-ik-arm',
-    number: '03',
-    title: 'Neural inverse-kinematics arm simulation',
-    shortTitle: 'Neural IK arm',
-    type: 'Robot learning · manipulation',
-    year: '2024',
-    description: 'A simulation study of learned inverse kinematics, with the classical geometry kept visible as a baseline and debugging tool.',
-    github: 'https://github.com/AdyaaKhera',
-    status: 'Simulation',
-    featured: true,
-    tags: ['Python', 'PyTorch', 'Simulation'],
-    role: 'Modeling, training pipeline, and evaluation design',
-    problem: 'Investigate whether a learned mapping can provide useful joint estimates while preserving interpretable failure modes.',
-    architecture: ['Forward-kinematics generator for synthetic training pairs', 'Learned end-effector-to-joint mapping', 'Classical solver retained for comparison and diagnostics'],
-    implementation: ['Separated data generation, training, and evaluation so each could be inspected independently', 'Tracked coordinate conventions explicitly across the pipeline', 'Focused evaluation on reproducible error reporting rather than a single headline number'],
-    results: 'See the linked source repository for the current implementation and verified evaluation outputs.',
-    limitations: 'Simulation results do not establish hardware performance. Workspace coverage, singularities, and transfer behavior require further study.',
-    media: { type: 'model', src: '', alt: 'Interactive robotic arm model placeholder' }
+    ...placeholder('1U CubeSat prototype'),
   },
   {
     slug: 'warehouse-amr',
-    number: '04',
     title: 'Warehouse autonomous mobile robot',
     shortTitle: 'Warehouse AMR',
-    type: 'Mobile robotics · navigation',
-    year: '2023—24',
-    description: 'A warehouse-oriented mobile robot study centered on dependable motion, clear interfaces, and operational constraints.',
-    github: 'https://github.com/AdyaaKhera',
+    type: 'Unmanned Ground Vehicle',
+    description: 'A warehouse-oriented mobile robot study centered on dependable motion and clear autonomy interfaces.',
     status: 'Prototype',
-    tags: ['Mobile robotics', 'Planning', 'Controls'],
-    role: 'Robot software and integration',
-    problem: 'Connect perception, planning, and low-level motion into a system that behaves predictably in a structured environment.',
-    architecture: ['Layered navigation stack with explicit command ownership', 'Safety limits between planner output and actuator commands', 'Simulation-first workflow for fast iteration'],
-    implementation: ['Built testable boundaries between localization, planning, and control', 'Used scenario-based checks for stop, reroute, and goal completion behaviors', 'Documented assumptions about the operating environment'],
-    results: 'The public project materials contain the verified implementation scope; no unverified throughput or accuracy claims are made here.',
-    limitations: 'A warehouse prototype is not evidence of production reliability. Deployment would require site-specific validation and safety review.',
-    media: { type: 'model', src: '', alt: 'Interactive warehouse mobile robot model placeholder' }
+    tags: ['Mobile robotics', 'Navigation', 'Controls'],
+    displayGif: '/media/projects/warehouseAMR/warehouse-amr-display.gif',
+    gallery: ['/media/projects/warehouseAMR/warehouse-amr-gallery.gif'],
+    ...placeholder('warehouse autonomous mobile robot'),
   },
-  {
-    slug: 'tactile-manipulation',
-    number: '05',
-    title: 'Tactile manipulation research',
-    shortTitle: 'Tactile manipulation',
-    type: 'Research · contact-rich manipulation',
-    year: 'Ongoing',
-    description: 'Research contributions through MARS Lab, presented at the level approved for public disclosure.',
-    status: 'Disclosure-limited',
-    tags: ['Tactile sensing', 'Robot learning', 'Research'],
-    role: 'Research contributor',
-    problem: 'Understand how contact information can improve manipulation decisions under uncertainty.',
-    architecture: ['Details intentionally limited to approved public information', 'Research questions framed around sensing, representation, and control'],
-    implementation: ['Contributed within the lab’s review and documentation process', 'Separates public technical context from unpublished methods and results'],
-    results: 'Publication and result details will be added when approved for public release.',
-    limitations: 'Unpublished work, internal data, and restricted implementation details are intentionally not included.'
-  }
 ];
 
 export const featuredProjects = projects.filter((project) => project.featured);

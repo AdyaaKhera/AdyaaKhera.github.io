@@ -23,14 +23,11 @@ import GithubActivity from '../components/GithubActivity.astro';
           <div class="nav-tile about-tile" aria-label="About and journey photo carousel">
             <div class="dummy-carousel">
               <div class="carousel-track">
-                <div class="carousel-slide">
-                  <img src="/media/main.jpeg" alt="Adyaa Khera pointing toward the camera" />
-                  <p class="carousel-caption">Behind the scenes.</p>
-                </div>
-                <div class="carousel-slide">
-                  <img src="/media/contact.jpeg" alt="A behind-the-scenes view from Adyaa Khera's portfolio" />
-                  <p class="carousel-caption">A work in progress.</p>
-                </div>
+                <div class="carousel-slide"><img src="/media/main.jpeg" alt="Adyaa Khera pointing toward the camera" /><p class="carousel-caption">Behind the scenes.</p></div>
+                <div class="carousel-slide"><img src="/media/contact.jpeg" alt="A behind-the-scenes view from Adyaa Khera's portfolio" /><p class="carousel-caption">A work in progress.</p></div>
+                <div class="carousel-slide"><img src="/media/carousel/WhatsApp Image 2026-10-11 at 14.53.24.jpeg" alt="A robotics project in progress" /><p class="carousel-caption">Building something new.</p></div>
+                <div class="carousel-slide"><img src="/media/carousel/WhatsApp Image 2026-10-11 at 14.55.35.jpeg" alt="A robotics workspace" /><p class="carousel-caption">In the lab.</p></div>
+                <div class="carousel-slide"><img src="/media/carousel/WhatsApp Image 2026-10-11 at 14.58.06.jpeg" alt="A hands-on engineering moment" /><p class="carousel-caption">Hands-on engineering.</p></div>
               </div>
               <button class="carousel-arrow carousel-prev" type="button" aria-label="Previous About and journey image">←</button>
               <button class="carousel-arrow carousel-next" type="button" aria-label="Next About and journey image">→</button>
@@ -94,12 +91,13 @@ import GithubActivity from '../components/GithubActivity.astro';
   const carousel = document.querySelector('.dummy-carousel');
   const track = carousel?.querySelector('.carousel-track') as HTMLElement | null;
   const slides = track ? Array.from(track.querySelectorAll('img')) : [];
+  if (track) track.style.setProperty('--slide-count', String(slides.length));
   let slideIndex = 0;
   let carouselTimer: number | undefined;
   const showSlide = (index: number) => {
     if (!track || slides.length === 0) return;
     slideIndex = (index + slides.length) % slides.length;
-    track.style.transform = `translateX(-${slideIndex * 50}%)`;
+    track.style.transform = `translateX(-${slideIndex * (100 / slides.length)}%)`;
   };
   const resetCarouselTimer = () => {
     if (carouselTimer) window.clearInterval(carouselTimer);
