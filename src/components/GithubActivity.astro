@@ -29,10 +29,15 @@ const updates = [
 ---
 <aside class="news-panel" aria-labelledby="activity-title">
   <h2 id="activity-title">Recent updates</h2>
+  <div class="latest-update">
+    <span class="latest-badge">Latest</span>
+    {updates[0].href ? <a href={updates[0].href} target="_blank" rel="noopener noreferrer">{updates[0].title} <span class="external-arrow" aria-hidden="true">↗</span></a> : <span>{updates[0].title}</span>}
+    <time datetime={updates[0].date}>{new Date(`${updates[0].date}T12:00:00`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</time>
+  </div>
   <div class="feed" aria-live="polite">
     <div class="feed-track">
-      {[...updates, ...updates].map((update, index) => (
-        <div class="feed-item" aria-hidden={index >= updates.length ? 'true' : undefined}>
+      {[...updates.slice(1), ...updates.slice(1)].map((update, index) => (
+        <div class="feed-item" aria-hidden={index >= updates.length - 1 ? 'true' : undefined}>
           {update.href ? <a href={update.href} target="_blank" rel="noopener noreferrer">{update.title} <span class="external-arrow" aria-hidden="true">↗</span></a> : <span>{update.title}</span>}
           <time datetime={update.date}>{new Date(`${update.date}T12:00:00`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</time>
         </div>

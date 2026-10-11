@@ -8,18 +8,18 @@ import GithubActivity from '../components/GithubActivity.astro';
     <div class="intro-card">
       <div class="intro-photo-frame">
         <img class="intro-photo" src="/media/main.jpeg" alt="Adyaa presenting a Fusion 360 robotics design" />
+        <p class="intro-photo-caption">I want to make robots that go to space.</p>
       </div>
       <div class="intro-copy">
-        <h1 class="typewriter" aria-label="Hi! I'm Adyaa Khera, a robotics engineer, a travelling enthusiast, a photography lover, and a lifelong tinkerer."><span id="typewriter-text">Hi! I’m Adyaa Khera</span><span class="caret" aria-hidden="true"></span></h1>
-        <p>A junior in robotics at Purdue. Researcher at MARS Lab<br />Always thinking, building and dreaming big.</p>
+        <h1 class="typewriter" aria-label="Hi! I'm Adyaa Khera, a robotics engineer, a lifelong tinkerer, a teaching assistant, a photographer, and a traveller."><span id="typewriter-text">Hi! I’m Adyaa Khera.</span><span class="caret" aria-hidden="true"></span></h1>
+        <p>Robotics at Purdue · Researcher at MARS Lab</p>
       </div>
     </div>
     <div class="home-lower">
       <div class="section-board">
-        <p class="board-label">Explore the portfolio</p>
         <div class="home-nav" aria-label="Explore the portfolio">
-          <a class="nav-tile personal-tile" href="/projects/"><small>01 / BUILD</small><h2>Personal projects</h2><span>↗</span></a>
-          <a class="nav-tile research-tile" href="/research/"><small>02 / STUDY</small><h2>Research</h2><span>↗</span></a>
+          <a class="nav-tile personal-tile" href="/projects/"><h2>Personal projects</h2><span aria-hidden="true">↗</span></a>
+          <a class="nav-tile research-tile" href="/research/"><h2>Research</h2><span aria-hidden="true">↗</span></a>
           <div class="nav-tile about-tile" aria-label="About and journey photo carousel">
             <div class="dummy-carousel">
               <div class="carousel-track">
@@ -36,7 +36,7 @@ import GithubActivity from '../components/GithubActivity.astro';
               <button class="carousel-arrow carousel-next" type="button" aria-label="Next About and journey image">→</button>
             </div>
           </div>
-          <a class="nav-tile contact-tile" href="mailto:adyaa.khera@gmail.com"><small>04 / SAY HI</small><h2>Contact me</h2><span>↗</span></a>
+          <a class="nav-tile contact-tile" href="mailto:adyaa.khera@gmail.com"><h2>Contact me</h2><span aria-hidden="true">↗</span></a>
         </div>
       </div>
       <GithubActivity />
@@ -46,12 +46,12 @@ import GithubActivity from '../components/GithubActivity.astro';
 <script>
   const typewriter = document.querySelector('#typewriter-text');
   const phrases = [
-    'Hi! I’m Adyaa Khera',
-    'Hi! I’m a robotics engineer',
-    'Hi! I’m a teaching assistant',
-    'Hi! I’m a travelling enthusiast',
-    'Hi! I’m a photography lover',
-    'Hi! I’m a lifelong tinkerer'
+    'Hi! I’m Adyaa Khera.',
+    'Hi! I’m a robotics engineer.',
+    'Hi! I’m a lifelong tinkerer.',
+    'Hi! I’m a teaching assistant.',
+    'Hi! I’m a photographer.',
+    'Hi! I’m a traveller.'
   ];
   let phraseIndex = 0;
   let characterIndex = phrases[0].length;

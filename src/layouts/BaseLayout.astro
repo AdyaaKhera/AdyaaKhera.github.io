@@ -31,12 +31,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header">
-      <a class="wordmark" href="/"><span class="mark">AK</span><span>ADYAA KHERA</span></a>
+      <a class="wordmark" href="/">ADYAA KHERA</a>
       <nav aria-label="Primary navigation">
         <a href="/projects/">Projects</a>
         <a href="/research/">Research</a>
       </nav>
-      <a class="header-contact" href="mailto:adyaa.khera@gmail.com"><span class="status-dot"></span>Available for conversations</a>
+      <a class="header-contact" href="https://www.linkedin.com/in/adyaakhera#:~:text=Message" target="_blank" rel="noopener noreferrer"><span class="status-dot"></span>Always available to discuss a cool build</a>
     </header>
     <main id="main"><slot /></main>
     <footer class="site-footer">
@@ -56,14 +56,14 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   .skip-link { position:absolute; left:1rem; top:-5rem; background:var(--ink); color:white; padding:.7rem 1rem; z-index:10; }
   .skip-link:focus { top:1rem; }
   .site-header, .site-footer { width:min(calc(100% - 3.5rem), var(--max)); margin:auto; display:flex; align-items:center; }
-  .site-header { min-height:78px; justify-content:space-between; gap:2rem; }
-  .wordmark { display:flex; align-items:center; gap:.7rem; font:600 .72rem/1 DM Mono, monospace; letter-spacing:.08em; }
+  .site-header { min-height:78px; justify-content:space-between; gap:1.5rem; }
+  .wordmark { display:flex; align-items:center; font:600 .72rem/1 DM Mono, monospace; letter-spacing:.08em; }
   .mark { display:grid; place-items:center; width:30px; height:30px; border:1px solid var(--ink); border-radius:50%; font-size:.65rem; }
   nav { display:flex; gap:.4rem; padding:.3rem; border:1px solid var(--line); border-radius:999px; font-size:.72rem; }
   nav a { color:var(--muted); padding:.55rem .9rem; border-radius:999px; }
   nav a:hover, nav a[aria-current="page"] { color:var(--ink); background:var(--panel); }
-  .header-contact { display:flex; align-items:center; gap:.55rem; color:var(--muted); font:500 .65rem DM Mono, monospace; }
+  .header-contact { display:flex; align-items:center; gap:.55rem; max-width:280px; color:var(--muted); font:500 .65rem/1.35 DM Mono, monospace; text-align:right; }
   .status-dot { width:7px; height:7px; background:var(--accent); border-radius:50%; }
   .site-footer { border-top:1px solid var(--line); padding:1rem 0 1.3rem; justify-content:space-between; color:var(--muted); font: .62rem DM Mono, monospace; gap:1rem; }
-  @media (max-width:700px) { .site-header, .site-footer { width:min(calc(100% - 2rem), var(--max)); } .site-header { flex-wrap:wrap; padding:1rem 0; } nav { order:3; width:100%; justify-content:center; } .header-contact { margin-left:auto; } .site-footer { align-items:flex-start; flex-direction:column; } }
+  @media (max-width:700px) { .site-header, .site-footer { width:min(calc(100% - 2rem), var(--max)); } .site-header { flex-wrap:wrap; padding:1rem 0; } nav { order:3; width:100%; justify-content:center; } .header-contact { display:none; } .site-footer { align-items:flex-start; flex-direction:column; } }
 </style>
