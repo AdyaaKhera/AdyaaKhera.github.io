@@ -23,8 +23,14 @@ import GithubActivity from '../components/GithubActivity.astro';
           <div class="nav-tile about-tile" aria-label="About and journey photo carousel">
             <div class="dummy-carousel">
               <div class="carousel-track">
-                <img src="/media/main.jpeg" alt="" />
-                <img src="/media/contact.jpeg" alt="" />
+                <div class="carousel-slide">
+                  <img src="/media/main.jpeg" alt="Adyaa Khera pointing toward the camera" />
+                  <p class="carousel-caption">A glimpse into the person behind the projects and ideas.</p>
+                </div>
+                <div class="carousel-slide">
+                  <img src="/media/contact.jpeg" alt="A behind-the-scenes view from Adyaa Khera's portfolio" />
+                  <p class="carousel-caption">A behind-the-scenes look at the work and experiences I share.</p>
+                </div>
               </div>
               <button class="carousel-arrow carousel-prev" type="button" aria-label="Previous About and journey image">←</button>
               <button class="carousel-arrow carousel-next" type="button" aria-label="Next About and journey image">→</button>
