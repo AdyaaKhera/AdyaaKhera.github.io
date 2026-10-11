@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/global.css';
+import { projects } from '../../data/projects';
+---
+<BaseLayout title="Projects" description="A visual archive of Adyaa Khera's robotics projects.">
+  <section class="project-page">
+    <div class="project-page-head">
+      <div><span class="eyebrow">Portfolio / dummy case studies</span><h1>Projects</h1></div>
+      <p class="lede">Click any project to open its full case study. The gallery stays still; only the project window scrolls.</p>
+    </div>
+    <div class="project-grid" aria-label="Project gallery">
+      {projects.map((project) => (
+        <button class="project-tile" type="button" data-project={project.slug} aria-haspopup="dialog">
+          <span class="tile-number">{project.number} / {project.year}</span>
+          <span class="tile-visual" aria-hidden="true">PROJECT<br />GIF</span>
+          <span><strong class="tile-title">{project.title}</strong><span class="tile-meta"><span>{project.type}</span><span>OPEN ↗</span></span></span>
+        </button>
+      ))}
+    </div>
+  </section>
+  {projects.map((project) => (
+    <dialog class="project-dialog" id={`dialog-${project.slug}`} aria-labelledby={`title-${project.slug}`}>
+      <div class="dialog-inner">
+        <button class="dialog-close" type="button" aria-label="Close project dialog">×</button>
+        <span class="eyebrow">{project.number} / {project.type}</span>
+        <h2 id={`title-${project.slug}`}>{project.title}</h2>
+        <p class="dialog-lede">{project.description}</p>
+        <section class="dialog-section"><h3>Problem</h3><p>{project.problem}</p></section>
+        <section class="dialog-section"><h3>Architecture</h3><ul>{project.architecture.map((item) => <li>{item}</li>)}</ul></section>
+        <section class="dialog-section"><h3>Implementation</h3><ul>{project.implementation.map((item) => <li>{item}</li>)}</ul></section>
+        <section class="dialog-section"><h3>Results</h3><p>{project.results}</p></section>
+        <section class="dialog-section"><h3>Limitations</h3><p>{project.limitations}</p></section>
+      </div>
+    </dialog>
+  ))}
+</BaseLayout>
+<script>
+  const tiles = document.querySelectorAll<HTMLButtonElement>('[data-project]');
+  tiles.forEach((tile) => {
+    tile.addEventListener('click', () => {
+      const dialog = document.querySelector<HTMLDialogElement>(`#dialog-${tile.dataset.project}`);
+      dialog?.showModal();
+    });
+  });
+  document.querySelectorAll<HTMLButtonElement>('.dialog-close').forEach((button) => {
+    button.addEventListener('click', () => button.closest('dialog')?.close());
+  });
+</script>

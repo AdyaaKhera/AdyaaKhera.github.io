@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/global.css';
+import GithubActivity from '../components/GithubActivity.astro';
+---
+<BaseLayout title="Robotics engineering portfolio" description="Adyaa Khera is a Purdue University Robotics Engineering Technology student building reliable robots across autonomy, space systems, and manipulation.">
+  <section class="home-canvas" aria-label="Introduction">
+    <div class="intro-card">
+      <div class="intro-photo-frame">
+        <img class="intro-photo" src="/media/main.jpeg" alt="Adyaa presenting a Fusion 360 robotics design" />
+      </div>
+      <div class="intro-copy">
+        <h1 class="typewriter" aria-label="Hi! I'm Adyaa Khera, a robotics engineer, a travelling enthusiast, a photography lover, and a lifelong tinkerer."><span id="typewriter-text">Hi! I’m Adyaa Khera</span><span class="caret" aria-hidden="true"></span></h1>
+        <p>A junior in robotics at Purdue. Researcher at MARS Lab<br />Always thinking, building and dreaming big.</p>
+      </div>
+    </div>
+    <div class="home-lower">
+      <div class="section-board">
+        <p class="board-label">Explore the portfolio</p>
+        <div class="home-nav" aria-label="Explore the portfolio">
+          <a class="nav-tile personal-tile" href="/projects/"><small>01 / BUILD</small><h2>Personal projects</h2><span>↗</span></a>
+          <a class="nav-tile research-tile" href="/research/"><small>02 / STUDY</small><h2>Research</h2><span>↗</span></a>
+          <div class="nav-tile about-tile" aria-label="About and journey photo carousel">
+            <div class="dummy-carousel">
+              <div class="carousel-track">
+                <img src="/media/main.jpeg" alt="" />
+                <img src="/media/contact.jpeg" alt="" />
+              </div>
+              <button class="carousel-arrow carousel-prev" type="button" aria-label="Previous About and journey image">←</button>
+              <button class="carousel-arrow carousel-next" type="button" aria-label="Next About and journey image">→</button>
+            </div>
+          </div>
+          <a class="nav-tile contact-tile" href="mailto:adyaa.khera@gmail.com"><small>04 / SAY HI</small><h2>Contact me</h2><span>↗</span></a>
+        </div>
+      </div>
+      <GithubActivity />
+    </div>
+  </section>
+</BaseLayout>
+<script>
+  const typewriter = document.querySelector('#typewriter-text');
+  const phrases = [
+    'Hi! I’m Adyaa Khera',
+    'Hi! I’m a robotics engineer',
+    'Hi! I’m a teaching assistant',
+    'Hi! I’m a travelling enthusiast',
+    'Hi! I’m a photography lover',
+    'Hi! I’m a lifelong tinkerer'
+  ];
+  let phraseIndex = 0;
+  let characterIndex = phrases[0].length;
+  let deleting = true;
+  const sharedPrefixLength = (from: string, to: string) => {
+    let index = 0;
+    while (index < from.length && index < to.length && from[index] === to[index]) index += 1;
+    return index;
+  };
+  const pause = (duration: number) => new Promise<void>((resolve) => window.setTimeout(resolve, duration));
+  const animateType = async () => {
+    if (!typewriter) return;
+    const current = phrases[phraseIndex];
+    const next = phrases[(phraseIndex + 1) % phrases.length];
+    if (deleting) {
+      characterIndex = Math.max(sharedPrefixLength(current, next), characterIndex - 1);
+      typewriter.textContent = current.slice(0, characterIndex);
+      if (characterIndex === sharedPrefixLength(current, next)) {
+        deleting = false;
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+        await pause(420);
+      } else {
+        await pause(42);
+      }
+    } else {
+      const target = phrases[phraseIndex];
+      characterIndex = Math.min(target.length, characterIndex + 1);
+      typewriter.textContent = target.slice(0, characterIndex);
+      if (characterIndex === target.length) {
+        deleting = true;
+        await pause(1800);
+      } else {
+        await pause(78);
+      }
+    }
+    window.requestAnimationFrame(animateType);
+  };
+  pause(1800).then(() => window.requestAnimationFrame(animateType));
+
+  const carousel = document.querySelector('.dummy-carousel');
+  const track = carousel?.querySelector('.carousel-track') as HTMLElement | null;
+  const slides = track ? Array.from(track.querySelectorAll('img')) : [];
+  let slideIndex = 0;
+  let carouselTimer: number | undefined;
+  const showSlide = (index: number) => {
+    if (!track || slides.length === 0) return;
+    slideIndex = (index + slides.length) % slides.length;
+    track.style.transform = `translateX(-${slideIndex * 50}%)`;
+  };
+  const resetCarouselTimer = () => {
+    if (carouselTimer) window.clearInterval(carouselTimer);
+    carouselTimer = window.setInterval(() => showSlide(slideIndex + 1), 3000);
+  };
+  carousel?.querySelector('.carousel-prev')?.addEventListener('click', () => {
+    showSlide(slideIndex - 1);
+    resetCarouselTimer();
+  });
+  carousel?.querySelector('.carousel-next')?.addEventListener('click', () => {
+    showSlide(slideIndex + 1);
+    resetCarouselTimer();
+  });
+  showSlide(0);
+  resetCarouselTimer();
+</script>

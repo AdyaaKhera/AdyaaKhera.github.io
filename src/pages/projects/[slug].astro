@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/global.css';
+import { projects } from '../../data/projects';
+export function getStaticPaths() {
+  return projects.map((project) => ({ params: { slug: project.slug }, props: { project } }));
+}
+const { project } = Astro.props;
+---
+<BaseLayout title={project.title} description={project.description}>
+  <article class="project-hero">
+    <span class="eyebrow">{project.number} / {project.type}</span>
+    <h1>{project.title}</h1>
+    <p class="lede">{project.description}</p>
+    <div class="project-meta">
+      <span>Role<strong>{project.role}</strong></span>
+      <span>Status<strong>{project.status}</strong></span>
+      <span>Links<strong>{project.github ? <a href={project.github}>Repository ↗</a> : 'Public disclosure pending'}</strong></span>
+    </div>
+  </article>
+  {project.media?.type === 'model' && (
+    <div class="model-frame" aria-label={`${project.title} 3D model viewer`}>
+      {project.media.src ? <model-viewer src={project.media.src} camera-controls shadow-intensity="1" alt={project.media.alt}></model-viewer> : <div class="model-placeholder"><strong>3D model slot</strong>Drop an approved GLB or glTF file into <code>public/models/{project.slug}/</code> and set its path in project data.</div>}
+    </div>
+  )}
+  <section class="case-grid"><h2>Problem</h2><p>{project.problem}</p></section>
+  <section class="case-grid"><h2>Architecture</h2><ul>{project.architecture.map((item) => <li>{item}</li>)}</ul></section>
+  <section class="case-grid"><h2>Implementation</h2><ul>{project.implementation.map((item) => <li>{item}</li>)}</ul></section>
+  <section class="case-grid"><h2>Results</h2><p>{project.results}</p></section>
+  <section class="case-grid"><h2>Limitations</h2><p>{project.limitations}</p></section>
+  <div>{project.tags.map((tag) => <span class="tag">{tag}</span>)}</div>
+</BaseLayout>

@@ -1,0 +1,42 @@
+---
+const updates = [
+  {
+    title: 'Preparing my Robocurve application with my team at MARS Lab',
+    date: 'October 10, 2026',
+    href: 'https://robocurve.org',
+  },
+  {
+    title: 'Just finished building a computer vision system from scratch!',
+    date: 'October 9, 2026',
+  },
+  {
+    title: 'Joining the outreach committee organizing the RISE conference at Purdue',
+    date: 'October 3, 2026',
+  },
+  {
+    title: 'Participating in the Undergraduate Fall Research Expo at Purdue',
+    date: 'October 1, 2026',
+  },
+  {
+    title: 'Transferring panda data collection pipeline to LeRobot - MARS Lab',
+    date: 'September 8, 2026',
+  },
+  {
+    title: 'Just built a shuffle car for EBEC 102!',
+    date: 'September 2, 2026',
+  },
+];
+---
+<aside class="news-panel" aria-labelledby="activity-title">
+  <h2 id="activity-title">Recent updates</h2>
+  <div class="feed" aria-live="polite">
+    <div class="feed-track">
+      {[...updates, ...updates].map((update, index) => (
+        <div class="feed-item" aria-hidden={index >= updates.length ? 'true' : undefined}>
+          {update.href ? <a href={update.href} target="_blank" rel="noreferrer">{update.title} <span class="external-arrow" aria-hidden="true">↗</span></a> : <span>{update.title}</span>}
+          <time datetime={update.date}>{update.date}</time>
+        </div>
+      ))}
+    </div>
+  </div>
+</aside>
